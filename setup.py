@@ -26,7 +26,7 @@ setup(
         """
         [ckan.plugins]
         # Add plugins here, eg
-        ceic_plugin=ckanext.ceres.plugin:CeresPlugin
+        ceres_plugin=ckanext.ceres.plugin:CeresPlugin
         esri_harvester=ckanext.ceres.harvesters:ESRIHarvester
         """,
 )
