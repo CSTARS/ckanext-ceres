@@ -1,0 +1,29 @@
+/**
+ * Default ckan theme overrides to work with the state template
+ **/
+ 
+[role=main], .main {
+    background: none;
+}
+.hero {
+    background: none;
+}
+
+.account-masthead .account ul li a {
+    line-height : 24px;
+}
+.account-masthead .account.authed .image img {
+    margin-top: 1px;
+}
+.masthead .content {
+    top: 18px;
+}
+.site-footer {
+    background: #005b8a;
+}
+.ceres-account-header {
+    padding-top:3px;
+    position:absolute;
+    right:25px;
+    z-index:5;
+}

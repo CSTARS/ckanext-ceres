@@ -1,0 +1,117 @@
+{% block header_wrapper %}
+
+
+<div id="header">
+
+  <img src="http://ceic2.casil.ucdavis.edu/wp-content/themes/ca-template-2010/images/design01/header_bg_full_width-left.png" style="position: absolute; top: 0px; left: 0px;" />
+
+
+    <div class="head_cagov_logo"><a href="http://www.ca.gov/"><img src="http://ceic2.casil.ucdavis.edu/wp-content/themes/ca-template-2010/images/design01/header_ca.gov.png" alt="CA.gov" /></a></div>
+    <div id="header-text"><div style="font-size: 16px; padding-left: 2px; padding-bottom: 1px;">California Natural Resources Agency</div>CERES</div>
+
+{% block header_account %}
+  <header class="account-masthead" style="background:none">
+    <div class="container">
+      {% if c.userobj %}
+        <div class="account avatar authed ceres-account-header" data-module="me" data-me="{{ c.userobj.id }}">
+          <ul class="unstyled">
+            {% block header_account_logged %}
+            {% if c.userobj.sysadmin %}
+              <li>
+                <a href="{{ h.url_for(controller='admin', action='index') }}" title="{{ _('Sysadmin settings') }}">
+                  <i class="icon-legal"></i>
+                </a>
+              </li>
+            {% endif %}
+            <li>
+              <a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
+                <span class="username">{{ c.userobj.display_name }}</span>
+              </a>
+            </li>
+            {% set new_activities = h.new_activities() %}
+            <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
+              {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities) %}
+              <a href="{{ h.url_for(controller='user', action='dashboard') }}" title="{{ notifications_tooltip }}">
+                <i class="icon-dashboard"></i>
+                <span>{{ new_activities }}</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">
+                <i class="icon-cog"></i>
+              </a>
+            </li>
+            <li>
+              <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+                <i class="icon-signout"></i>
+              </a>
+            </li>
+            {% endblock %}
+          </ul>
+        </div>
+      {% else %}
+        <nav class="account not-authed ceres-account-header">
+          <ul class="unstyled">
+            {% block header_account_notlogged %}
+            <li>{% link_for _('Log in'), controller='user', action='login' %}</li>
+            <li>{% link_for _('Register'), controller='user', action='register', class_='sub' %}</li>
+            {% endblock %}
+          </ul>
+        </nav>
+      {% endif %}
+    </div>
+  </header>
+{% endblock %}
+
+<header class="masthead" style="background:none">
+  {% block header_debug %}
+  {% if g.debug and not g.debug_supress_header %}
+    <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
+  {% endif %}
+  {% endblock %}
+  <div class="container">
+
+    <div class="content">
+
+      {% block header_site_navigation %}
+        <nav class="section navigation">
+          <ul class="nav nav-pills">
+            {% block header_site_navigation_tabs %}
+            {{ h.build_nav_main(
+              ('search', _('Datasets')),
+              ('organizations_index', _('Organizations')),
+              ('group_index', _('Groups'))
+            ) }}
+            {% endblock %}
+          </ul>
+        </nav>
+      {% endblock %}
+
+      {% block header_site_search %}
+        <form class="section site-search simple-input" action="{% url_for controller='package', action='search' %}" method="get">
+          <div class="field">
+            <label for="field-sitewide-search">{{ _('Search Datasets') }}</label>
+            <input id="field-sitewide-search" type="text" name="q" placeholder="{{ _('Search') }}" />
+            <button class="btn-search" type="submit">{{ _('Search') }}</button>
+          </div>
+        </form>
+      {% endblock %}
+
+    </div>
+  </div>
+</header>
+
+     <div id="navigation">
+        <ul id="nav_list">
+            <li><a href="http://ceres.ca.gov" class="nav_level1_link">Home</a></li>
+            <li><a href="http://ceres.ca.gov/search" class="nav_level1_link">Search</a></li>
+            <li><a href="http://ceres.ca.gov/mapviewer" class="nav_level1_link">Maps</a></li>
+        </ul>
+    </div>
+    <div id="img_ribbon"></div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% ckan_extends %}
+
+{# Remove 'free extras' from the package form. If you're using
+convert_to/from_extras() as we are with our 'custom_text' field below then
+you need to remove free extras from the form, or editing your custom field
+won't work.
+#}
+
+{% block custom_fields %}
+{% endblock %}
+
+ 
+{% block package_metadata_fields %}
+
+{{ super() }}
+
+  {{ form.input('purpose', label=_('Purpose'), id='field-dataDictionary', placeholder=_(''), value=data.purpose, error=errors.purpose, classes=['control-medium']) }}
+
+<div class="control-group">
+  <label class="control-label" for="field-currentness">{{ _("Currentness") }}</label>
+  <div class="controls">
+    <select id="field-currentness" name="currentness">
+      <option value=""></option>
+      <option value="Ground Condition" {% if data.get('currentness', '') == 'Ground Condition' %}selected="selected"{% endif %} >Ground Condition</option>
+      <option value="Publication Date" {% if data.get('currentness', '') == 'Publication Date' %}selected="selected"{% endif %} >Publication Date</option>
+    </select>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="field-progress">{{ _("Progress") }}</label>
+  <div class="controls">
+    <select id="field-progress" name="progress">
+      <option value=""></option>
+      <option value="Complete" {% if data.get('progress', '') == 'Complete' %}selected="selected"{% endif %} >Complete</option>
+      <option value="On Going" {% if data.get('progress', '') == 'On Going' %}selected="selected"{% endif %} >On Going</option>
+      <option value="None Planned" {% if data.get('progress', '') == 'None Planned' %}selected="selected"{% endif %} >None Planned</option>
+    </select>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="field-update_frequency">{{ _("Update Frequency") }}</label>
+  <div class="controls">
+    <select id="field-update_frequency" name="update_frequency">
+      <option value=""></option>
+      <option value="As needed" {% if data.get('update_frequency', '') == 'As needed' %}selected="selected"{% endif %} >As needed</option>
+      <option value="Irregular" {% if data.get('update_frequency', '') == 'Irregular' %}selected="selected"{% endif %} >Irregular</option>
+      <option value="Annually" {% if data.get('update_frequency', '') == 'Annually' %}selected="selected"{% endif %} >Annually</option>
+      <option value="None Planned" {% if data.get('update_frequency', '') == 'None Planned' %}selected="selected"{% endif %} >None Planned</option>
+    </select>
+  </div>
+</div>
+
+  {{ form.input('use_constraints', label=_('Use Constraints'), id='field-use_constraints', placeholder=_(''), value=data.use_constraints, error=errors.use_constraints, classes=['control-medium']) }}
+
+<div class="control-group">
+  <label class="control-label" for="field-spatial">{{ _("Bounding Box") }}</label>
+  <div class="controls">
+    <input type="text" style="display:none" name="spatial" id="field-spatial" value="{{ data.spatial }}" />
+    <div class="dataset-map" data-module="create-dataset-map" data-extent="{{ data.spatial }}" data-default_extent="[[90, 180], [-90, -180]]" >
+	  <div id="dataset-map-container"></div>
+	  <div id="dataset-map-attribution">
+	    <div>Map data CC-BY-SA by <a href="http://openstreetmap.org">OpenStreetMap</a></div>
+	    <div>Tiles by <a href="http://www.mapquest.com">MapQuest</a></div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+
+
+    <div class="control-group">
+	  <div class="controls">
+	    <label class="checkbox">
+	      <input id="field-pub_to_datagov" type="checkbox" value="">
+	      Published to <a target='_blank' href='http://catalog.data.gov/dataset'>DATA.gov</a>
+	    </label>
+	  </div>
+	</div>
+	
+	<div class="control-group">
+	  <div class="controls">
+	    <label class="checkbox">
+	      <input id="field-pub_to_cageoportal" type="checkbox" value="">
+	      Published to the <a target='_blank' href='http://portal.gis.ca.gov'>State Geoportal</a>
+	    </label>
+	  </div>
+	</div>
+
+{% resource 'ceic/ceic_js' %}
+{% resource 'ckanext-spatial/spatial_query' %}
+
+{% endblock %}

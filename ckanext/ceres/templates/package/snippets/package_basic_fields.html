@@ -1,0 +1,38 @@
+{% ckan_extends %}
+
+{% block package_basic_fields_custom %}
+
+<div class="control-group">
+  <label class="control-label" for="field-pkg_type">{{ _("Type") }}</label>
+  <div class="controls">
+    <select id="field-pkg_type" name="pkg_type">
+      <option value=""></option>
+      <option value="Raw Data" {% if data.get('pkg_type', '') == 'Raw Data' %}selected="selected"{% endif %} >Raw Data</option>
+      <option value="Tool" {% if data.get('pkg_type', '') == 'Tool' %}selected="selected"{% endif %} >Tool</option>
+      <option value="Geospatial"{% if data.get('pkg_type', '') == 'Geospatial' %}selected="selected"{% endif %} >Geospatial</option>
+      <option value="Document" {% if data.get('pkg_type', '') == 'Document' %}selected="selected"{% endif %} >Document</option>
+      <option value="Other" {% if data.get('pkg_type', '') == 'Other' %}selected="selected"{% endif %} >Other</option>
+    </select>
+  </div>
+</div>
+
+{% set topics_attrs = {'data-module': 'autocompleteV3', 'data-module-tags': '', 'data-module-source': '/api/3/action/tag_autocomplete?vocabulary_id=topics&query=?'} %}
+{{ form.input('topics', id='field-topics', label=_('Topics'), placeholder=_('eg. fish, bears'), value=data.topics, error=errors.topics, classes=['control-full'], attrs=topics_attrs) }}
+
+{% set organizations_available = h.get_organizations() %}
+<div class="control-group">
+  <label for="field-contributing_org" class="control-label">{{ _('Contributing Organization') }}</label>
+  <div class="controls">
+    <select id="field-contributing_org" name="contributing_org" data-module="autocomplete">
+      <option value="" ></option>
+      {% for organization in organizations_available %}
+        <option value="{{ organization.id }}" {% if data.get('contributing_org', '') ==  organization.id %} selected="selected" {% endif %}>{{ organization.display_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+{% set locations_attrs = {'data-module': 'autocompleteV3', 'data-module-tags': '', 'data-module-source': '/api/3/action/tag_autocomplete?vocabulary_id=locations&query=?'} %}
+{{ form.input('locations', id='field-locations', label=_('Locations'), placeholder=_('eg. yolo, yuba river'), value=data.locations, error=errors.locations, classes=['control-full'], attrs=locations_attrs) }}
+
+{% endblock %}

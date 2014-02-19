@@ -1,4 +1,4 @@
-ckanext-ceres
-=============
+ckanext-ceic
+============
 
-Ceres CKAN Extension
+CEIC extension for CKAN adding additional fields and controls

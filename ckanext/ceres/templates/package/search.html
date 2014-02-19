@@ -1,0 +1,12 @@
+{% ckan_extends %}
+
+{# Add the spatial search widget.  Note: ckanext-spatial needs to be installed!
+   https://github.com/okfn/ckanext-spatial #}
+   
+{% block secondary_content %}
+  {% snippet "spatial/snippets/spatial_query.html" %}
+
+  {% for facet in c.facet_titles %}
+      {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+  {% endfor %}
+{% endblock %}

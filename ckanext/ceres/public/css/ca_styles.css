@@ -1,0 +1,272 @@
+/*
+State of California master template
+Version 2010.11.02
+*/
+
+/* *************** CSS Reset *************** */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+/*	vertical-align: baseline; */
+	background: transparent;
+}
+
+
+/* *************** Outer structure *************** */
+
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:0.78em;
+	background:#fff;
+	line-height: 1.2;
+}
+
+
+/* *************** Header *************** */
+
+#header {
+	width:968px;
+	height:154px;
+	margin:0 auto;
+	position:relative;
+	background:transparent url(../../imgs/header_bg.png) no-repeat top right;
+	z-index:10;
+}
+
+#skip_to_content a, #skip_to_content a:hover, #skip_to_content a:visited {
+	position:absolute;
+	left:0px;
+	top:-500px;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
+#skip_to_content a:active, #skip_to_content a:focus {
+	position:static;
+	width:auto;
+	height:auto;
+	color:#00f;
+	background:#fff;
+	padding:1px 2px;
+} 
+
+#header .head_cagov_logo {
+	position:absolute;
+	top:55px;
+	left:50px;
+	z-index:10;
+}
+#header .head_organization_banner {
+	position:absolute;
+	top:60px; /* Adjusts the position of your organization banner */
+	left:165px; /* Adjusts the position of your organization banner */
+	z-index:20;
+}
+
+#head_links {
+	position:absolute;
+	top:46px;
+	left:566px;
+	font-size:.9em;
+	color:#c2e5f4;
+}
+#head_links a {
+	color:#c2e5f4;
+	background-color:#012b41;
+	margin:0 8px;
+}
+#head_links a:hover {
+	color:#fff;
+}
+
+
+/* Search */
+
+#head_search {
+	position:absolute;
+	left:730px;
+	top:71px;
+	z-index:10;
+}
+
+#search_ca_textfield, #search_local_textfield {
+	border:0;
+	background-color:transparent;
+	padding:3px 0 0 8px;
+	width:175px; /* 183 - 8 */
+	color:#505050;
+	font-size:0.92em;
+}
+.submit_container {
+	position:absolute;
+	top:0px;
+	left:183px;
+}
+.javascript_off #radio_container {
+	display:none;
+}
+#radio_container {
+	position:absolute;
+	top:20px;
+	left:40px;
+	color:#fff;
+	font-size:.9em;
+}
+#header .radiobutton {
+	position:relative;
+	top:2px;
+}
+.javascript_on #header .radiobutton {
+	position:absolute;
+	left:-2000px;
+}
+
+.gsc-completion-container {
+	z-index:50; /* fix issue where Google autocomplete dropdown appears behind header images */
+}
+
+
+/* Navigation */
+
+#navigation {
+	position:absolute;
+	top:95px;
+	left:16px;
+	padding-left:128px; /* adjusts the horizontal position of the top-level nav */
+}
+#navigation ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+#navigation li {
+	float: left;
+	background: transparent url(../../imgs/nav_divider.png) no-repeat bottom right;
+	padding:0 0 0 0px;
+}
+#navigation li.last_nav_item {
+	background-image:none;
+}
+
+#navigation a.nav_level1_link {
+	text-decoration:none;
+	display: block;
+	padding:0 15px 0 17px; /* adjust the width of the tabs by adjusting the left & right padding */
+	margin-right:2px; /* add 1px gap on right side of tab */
+	height:23px; /* 47 - 24 */
+	color: #eee;
+	text-transform: uppercase;
+	font-size: 1.21em;
+	text-shadow: #000 1px 1px 3px; /* This is valid in CSS 2 and 3 but not 2.1 */
+	padding-top:24px;
+	white-space:nowrap; /* fix IE8 comp mode issue where nav text wraps */
+}
+
+#navigation li.last_nav_item a.nav_level1_link {
+	margin-right:0px;
+}
+
+#nav_list :first-child a.nav_level1_link {
+	padding-left:45px; /* Add padding so the entire background highlight can be seen */
+}
+
+.highlighted_nav_item a.nav_level1_link, .body_home #nav_list :first-child .nav_level1_link {
+	background: transparent url(../../imgs/nav_highlight.png) no-repeat bottom right; /* current page item, home, spec 0-2-1, 1-3-0 */
+}
+#navigation #nav_list.unhighlight_nav_item a.nav_level1_link {
+	background-image:none; /* unhighlight current page item, spec 2-2-1 */
+}
+#header #navigation #nav_list li:hover a.nav_level1_link {
+	background: transparent url(../../imgs/nav_highlight.png) no-repeat bottom right; /* hovered item, spec 3-2-2 */
+}
+
+
+/* *************** page_container *************** */
+
+
+#banner, #main_content {
+	width:936px;
+	margin:0 auto;
+	color:#505050;
+}
+
+/* *************** Banner *************** */
+
+#banner {
+	height:285px;
+}
+
+
+
+/****
+ *  full width overrides
+ ****/
+body {
+    min-width: 1030px;
+    background: none;
+}
+
+#header {
+    width: auto;
+    margin: auto;
+    height: 115px;
+    background:transparent url("../../imgs/header_bg_full_width-right.png") repeat-x top left;
+}
+
+#header .head_cagov_logo {
+    top: 16px;
+}
+
+#header-text {
+    color: #FFFFFF;
+    display: block;
+    font-size: 30px;
+    height: 47px;
+    margin: 20px 0 0 168px;
+    outline: 0 none;
+    padding: 0 16px 0;
+    position: absolute;
+    text-shadow: 1px 1px 3px #333333;
+}
+
+#head_links {
+    left: auto;
+    right: 35px;
+}
+
+#navigation {
+    top: 56px;
+}
+
+#page_container {
+    background: none;
+    width: auto;
+    background-color: white;
+}
+
+#banner, #main_content {
+    width: auto;
+    margin: auto;
+}
+
+
+.add_padding {
+    padding: 0;
+}
+
+script {
+	line-height:0;
+}
+ 

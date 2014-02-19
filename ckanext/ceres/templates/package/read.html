@@ -1,0 +1,53 @@
+{% ckan_extends %}
+
+{% block package_description %}
+  {{ super() }}
+
+
+<div class="module-content">
+    
+    <table class="table">
+        <tr><td>Type</td><td>{{ h.get_pkg_dict_extra(c.pkg_dict, 'pkg_type', '') }}</td>
+        <tr><td>Topics</td><td>{{ c.pkg_dict.Topic }}</td>
+        <tr><td>Contributing Organization</td>
+	        <td>
+	        {% set organizations_available = h.get_organizations() %}
+	        {% set orgid = h.get_pkg_dict_extra(c.pkg_dict, 'contributing_org', '') %}
+	        {% for organization in organizations_available %}
+	            {% if orgid == organization.id %}{{ organization.display_name }}{% endif %}
+	        {% endfor %}
+	        </td>
+        <tr><td>Locations</td><td>{{ c.pkg_dict.locations }}</td>
+    </table>
+
+</div>
+
+  
+{% endblock %}
+
+
+{% block package_additional_info %}
+
+<div class="module-content">
+    <table class="table">
+        <tr><td>Author</td><td>{{ c.pkg_dict.author }} {% if c.pkg_dict.author_email %} - <a href="mailto:{{ c.pkg_dict.author_email }}">{{ c.pkg_dict.author_email }}</a>{% endif %} </td>
+        <tr><td>Maintainer</td><td>{{ c.pkg_dict.maintainer }} {% if c.pkg_dict.maintainer_email %} - <a href="mailto:{{ c.pkg_dict.maintainer_email }}">{{ c.pkg_dict.maintainer_email }}</a>{% endif %}</td>
+        <tr><td>Purpose</td><td>{{ h.get_pkg_dict_extra(c.pkg_dict, 'purpose', '') }}</td>
+        <tr><td>Currentness</td><td>{{ h.get_pkg_dict_extra(c.pkg_dict, 'currentness', '') }}</td>
+        <tr><td>Progress</td><td>{{ h.get_pkg_dict_extra(c.pkg_dict, 'progress', '') }}</td>
+        <tr><td>Use Constraints</td><td>{{ h.get_pkg_dict_extra(c.pkg_dict, 'use_constraints', '') }}</td>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block secondary_content %}
+  {{ super() }}
+
+  {% set dataset_extent = h.get_pkg_dict_extra(c.pkg_dict, 'spatial', '') %}
+  {% if dataset_extent %}
+    {% snippet "spatial/snippets/dataset_map_sidebar.html", extent=dataset_extent %}
+  {% endif %}
+
+{% endblock %}
+

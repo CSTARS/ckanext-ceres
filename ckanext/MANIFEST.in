@@ -1,0 +1,2 @@
+recursive-include ckanext/ceres/templates                                           *
+recursive-include ckanext/ceres/public                                              *

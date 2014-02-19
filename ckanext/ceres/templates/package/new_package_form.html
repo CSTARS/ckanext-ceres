@@ -1,0 +1,6 @@
+{% ckan_extends %}
+
+{% block metadata_fields %}
+  {{ super() }}
+  {% resource 'ceic/ceic_js' %}
+{% endblock %}
