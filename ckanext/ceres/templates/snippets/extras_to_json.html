@@ -1,0 +1,14 @@
+<script type="text/javascript">
+  var __ckan_extra_fields = [
+  {% set len = extras|length %}
+  {% for extra in extras %}
+    {% set prefix = 'extras__%d__' % loop.index0 %}
+    {% set error = errors[loop.index0] %}
+
+    {key:{{ h.escape_json(extra.key)|safe }}, value:{{ h.escape_json(extra.value)|safe }},
+    deleted:{% if extra.deleted %}true{% else %}false{% endif %}
+    {% if error %},error:{{ h.escape_json(error)|safe }}{% endif %}
+    }{% if loop.index0 != len-1 %},{% endif %}
+  {% endfor %}
+  ];
+</script>

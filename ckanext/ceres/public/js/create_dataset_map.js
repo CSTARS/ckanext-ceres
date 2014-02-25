@@ -93,7 +93,7 @@ this.ckan.module('create-dataset-map', function (jQuery, _) {
               "coordinates":[line]
           }
           
-          $('#field-spatial').val(JSON.stringify(geojson));
+          $('#'+module.el.attr('extra-id')).val(JSON.stringify(geojson));
           
           module.extentLayer = L.geoJson(geojson, {
               style: module.options.styles.default_,

@@ -62,20 +62,13 @@ this.ckan.module('autocompleteV3', function (jQuery, _) {
         formatNoMatches: this.formatNoMatches,
         formatInputTooShort: this.formatInputTooShort,
         dropdownCssClass: this.options.dropdownClass,
-        containerCssClass: this.options.containerClass
+        containerCssClass: this.options.containerClass,
+        multiple: true
       };
 
-      // Different keys are required depending on whether the select is
-      // tags or generic completion.
-      if (!this.el.is('select')) {
-        if (this.options.tags) {
-          settings.tags = this._onQuery;
-        } else {
-          settings.query = this._onQuery;
-          settings.createSearchChoice = this.formatTerm;
-        }
-        settings.initSelection = this.formatInitialValue;
-      }
+      settings.query = this._onQuery;
+      settings.createSearchChoice = this.formatTerm;
+      settings.initSelection = this.formatInitialValue;
 
       var select2 = this.el.select2(settings).data('select2');
 
