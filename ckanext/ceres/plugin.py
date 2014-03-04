@@ -31,6 +31,15 @@ def Topic():
     except tk.ObjectNotFound:
         return None
 
+def Partners():
+    '''Return the partners to the UI.'''
+    try:
+        partners = tk.get_action('tag_list')(
+                data_dict={'vocabulary_id': 'Partner'})
+        return partners
+    except tk.ObjectNotFound:
+        return None
+
 # JM
 # for our custom tags, the convert_from_tags returns a array which is nasty
 # to the ui. If is array is return, join to create comma sepeated string
@@ -39,7 +48,7 @@ def listToString(key, data, errors, context):
     for k in data.keys():
         if k[0] == key[0] and not isinstance(data[k], str):
             print "%s %s" % (k, data[k])
-            data[k] = ','.join(data[k])
+            data[k] = ', '.join(data[k])
 
 # JM
 # HACK: the helper function fails to split comma seperated tag strings
@@ -85,12 +94,6 @@ def escape_json(str):
     except Exception:
         return "\"\""
 
-# JM
-# Used by the  ITemplateHelpers to provide the list of organizations to frontend
-def get_organizations():
-    ''' return a list of available organizations '''
-    return logic.get_action('organization_list')({}, {'all_fields':True})
-
 class CeresPlugin(plugins.SingletonPlugin,
         tk.DefaultDatasetForm):
     '''An example IDatasetForm CKAN plugin.
@@ -121,7 +124,7 @@ class CeresPlugin(plugins.SingletonPlugin,
     # Used by ITemplateHelpers to provide data to frontend
     def get_helpers(self):
         return {'Topic':Topic,
-                'get_organizations':get_organizations,
+                'Partners':Partners,
                 'escape_json' : escape_json
                 }
 

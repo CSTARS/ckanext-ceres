@@ -236,11 +236,7 @@ this.ckan.module('autocompleteV3', function (jQuery, _) {
       var value = jQuery.trim(element.val() || '');
       var formatted;
 
-      if (this.options.tags) {
-        formatted = jQuery.map(value.split(","), this.formatTerm);
-      } else {
-        formatted = this.formatTerm(value);
-      }
+     formatted = jQuery.map(value.split(","), this.formatTerm);
 
       // Select2 v3.0 supports a callback for async calls.
       if (typeof callback === 'function') {
