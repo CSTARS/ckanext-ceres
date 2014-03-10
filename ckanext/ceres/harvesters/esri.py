@@ -368,7 +368,9 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
 
                 # Assign the previous job id to the new object to
                 # avoid losing history
-                harvest_object.harvest_job_id = previous_object.job.id
+
+                # JM - TODO: this was throwing errors about object not being bound to session
+                #harvest_object.harvest_job_id = previous_object.job.id
                 harvest_object.add()
 
                 # Delete the previous object to avoid cluttering the object table
