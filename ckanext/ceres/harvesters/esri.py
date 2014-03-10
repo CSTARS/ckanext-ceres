@@ -5,6 +5,8 @@ import requests
 import re
 import json
 import uuid
+import math
+import os
 
 from pylons import config
 
@@ -22,8 +24,18 @@ from ckanext.harvest.model import HarvestObjectExtra as HOExtra
 
 
 class ESRIHarvester(HarvesterBase, SingletonPlugin):
-
     implements(IHarvester)
+
+    # map crappy esri projections
+    projMap = {
+        104199 : "4326",
+        102100 : "3857"
+    }
+    caMax = [-128.0, 45.0]
+    caMin = [-109.0, 29.0]
+
+    bad = []
+    count = 0
 
     force_import = False
 
@@ -533,6 +545,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         return r.json()
 
     def _walk_folder(self, server, path, foldername, services):
+        log = logging.getLogger(__name__ + '.ESRIHarvester.gather')
         server = server.strip('/')
         path = path.strip('/')
 
@@ -540,7 +553,12 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
 
         serviceList = json.get("services")
         for service in serviceList:
-            services.append(server+"/"+path+"/"+service.get("name")+"/"+service.get("type"))
+            serviceUrl = server+"/"+path+"/"+service.get("name")+"/"+service.get("type")
+            if self._is_ca(self._get_json(serviceUrl)):
+                services.append(serviceUrl)
+                log.debug('Service is in CA:  %s' % serviceUrl)
+            else:
+                log.debug('Service is OUTSIDE CA:  %s' % serviceUrl)
 
         folders = json.get("folders")
         for folder in folders:
@@ -573,3 +591,77 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
 
         if json.get("description") != None and json.get("description") != "":
             return json.get("description")
+
+    def _is_ca(self, json):
+        extentVars = ["fullExtent", "initialExtent", "extent"]
+        hasExtent = False
+
+        for extentVar in extentVars:
+            if json.get(extentVar) != None:
+                hasExtent = True
+                if self._is_ext_ca(json.get(extentVar)):
+                    return True
+
+        if hasExtent:
+            return False
+        return True
+
+    def _is_ext_ca(self, ext):
+        sr = ext.get("spatialReference")
+        if sr.get("wkid") != None:
+            try:
+                min = self._transform(sr.get("wkid"), "4326", ext.get("xmax"), ext.get("ymin"))
+                max = self._transform(sr.get("wkid"), "4326", ext.get("xmin"), ext.get("ymax"))
+
+                print min
+                print max
+
+                # check to see if we have real numbers
+                if not self._check_valid(min, max):
+                    return True
+
+                if self._intersect(self.caMin, self.caMax, min, max):
+                    return True
+                elif self._intersect(min, max, self.caMin, self.caMax):
+                    return True
+                else:
+                    # we only return false when we can validate it's outside of california
+                    return False
+
+            except Exception as e:
+                print Exception, e
+                print "Error projecting:  %s %s %s" % (sr.get("wkid"), ext.get("xmin"), ext.get("ymin"))
+                return False
+        return True
+
+    def _check_valid(self, br, tl):
+        if math.isnan(br[0]) or math.isnan(br[1]) or math.isnan(tl[0]) or math.isnan(tl[1]):
+            return False
+        return True
+
+    def _intersect(self, min1, max1, br, tl):
+        if self._point_intersect(min1[0], min1[1], br, tl):
+            return True
+        elif self._point_intersect(min1[0], max1[1], br, tl):
+            return True
+        elif self._point_intersect(max1[0], min1[1], br, tl):
+            return True
+        elif self._point_intersect(max1[0], max1[1], br, tl):
+            return True
+        return False
+
+    def _point_intersect(self, x, y, br, tl):
+        #print "%s < %s and %s > %s and %s > %s and %s < %s" % (x, br[0], x, tl[0], y, br[1], y,tl[1])
+        #print "%s and %s and %s and %s" % ((x < br[0]), (x > tl[0]), (y > br[1]), (y < tl[1]))
+        if x < br[0] and x > tl[0] and y > br[1] and y < tl[1]:
+            return True
+        return False
+
+    def _transform(self, p1, p2, x, y):
+        if p1 in self.projMap:
+            p1 = self.projMap[p1]
+
+        #print "echo '%s %s' | gdaltransform -s_srs EPSG:%s -t_srs EPSG:%s" % (x, y, p1, p2)
+        #print os.popen("echo '%s %s' | gdaltransform -s_srs EPSG:%s -t_srs EPSG:%s" % (x, y, p1, p2)).read()
+        parts = os.popen("echo '%s %s' | gdaltransform -s_srs EPSG:%s -t_srs EPSG:%s" % (x, y, p1, p2)).read().split(" ")
+        return [float(parts[0]), float(parts[1])]
