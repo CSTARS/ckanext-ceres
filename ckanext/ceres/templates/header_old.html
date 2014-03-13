@@ -1,11 +1,17 @@
 {% block header_wrapper %}
 
-<header role="banner">
 
+<div id="header">
+
+  <img src="http://ceic2.casil.ucdavis.edu/wp-content/themes/ca-template-2010/images/design01/header_bg_full_width-left.png" style="position: absolute; top: 0px; left: 0px;" />
+
+
+    <div class="head_cagov_logo"><a href="http://www.ca.gov/"><img src="http://ceic2.casil.ucdavis.edu/wp-content/themes/ca-template-2010/images/design01/header_ca.gov.png" alt="CA.gov" /></a></div>
+    <div id="header-text"><div style="font-size: 16px; padding-left: 2px; padding-bottom: 1px;">California Natural Resources Agency</div>CERES</div>
 
 {% block header_account %}
   <header class="account-masthead" style="background:none">
-    <div class="">
+    <div class="container">
       {% if c.userobj %}
         <div class="account avatar authed ceres-account-header" data-module="me" data-me="{{ c.userobj.id }}">
           <ul class="unstyled">
@@ -58,50 +64,54 @@
   </header>
 {% endblock %}
 
+<header class="masthead" style="background:none">
+  {% block header_debug %}
+  {% if g.debug and not g.debug_supress_header %}
+    <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
+  {% endif %}
+  {% endblock %}
+  <div class="container">
 
-	<div class="phone_hdr">
-		<div class="phone_hd_left">
-			<a class="p_h_button p_h_menu" onclick="toggle_menu();"><img src="/catemplate/imgs/clear.gif" alt="Menu" /></a>
-		</div>
-		<div class="phone_hd_right">
-			<a class="p_h_button p_h_contact" href="/staff"><img src="/catemplate/imgs/clear.gif" alt="Contact Us" /></a>
-		</div>
-		<div class="logo_and_banner">
-			<div class="head_cagov_logo"><a href="http://www.ca.gov/"><img src="/catemplate/imgs/header_ca.gov.png" alt="CA.gov" /></a></div>
-			<div class="head_organization_banner">
-				<div class="ceres-logo sub-logo">California Natural Resources Agency</div>
-				<div class="ceres-logo main-logo">CERES</div>
-			</div>
-		</div>
-	</div>
+    <div class="content">
 
-	<nav id="navigation" class="mininav">
-		<ul id="nav_list">
-			<li><a href="/" class="nav_level1_link"><span id="nav_home_container"></span><img src="/catemplate/imgs/clear.gif" alt="Home" />&nbsp;</a>
-			</li>
-			<li><a href="/search" class="nav_level1_link">Search</a>
-			</li>
-			<li><a href="/maps" class="nav_level1_link">Maps</a>
-			</li>
-			<li><a href="/contribute" class="nav_level1_link">Contribute Data</a>
-			</li>
-			<li><a href="/about" class="nav_level1_link">About Us</a>
-			</li>
-			<li><a class="nav_level1_link">More</a>
-				<div class="nav_panel">
-					<ul>
-						<li><a href="http://portal.gis.ca.gov/geoportal/">California GeoPortal</a></li>
-						<li><a href="/staff">Contact</a></li>
-						<li><a href="http://resources.ca.gov">California Natural Resources Agency</a></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-	</nav>
-	<div id="img_ribbon"></div>
+      {% block header_site_navigation %}
+        <nav class="section navigation">
+          <ul class="nav nav-pills">
+            {% block header_site_navigation_tabs %}
+            {{ h.build_nav_main(
+              ('search', _('Datasets')),
+              ('organizations_index', _('Organizations')),
+              ('group_index', _('Groups'))
+            ) }}
+            {% endblock %}
+          </ul>
+        </nav>
+      {% endblock %}
+
+      {% block header_site_search %}
+        <form class="section site-search simple-input" action="{% url_for controller='package', action='search' %}" method="get">
+          <div class="field">
+            <label for="field-sitewide-search">{{ _('Search Datasets') }}</label>
+            <input id="field-sitewide-search" type="text" name="q" placeholder="{{ _('Search') }}" />
+            <button class="btn-search" type="submit">{{ _('Search') }}</button>
+          </div>
+        </form>
+      {% endblock %}
+
+    </div>
+  </div>
 </header>
+
+     <div id="navigation">
+        <ul id="nav_list">
+            <li><a href="http://ceres.ca.gov" class="nav_level1_link">Home</a></li>
+            <li><a href="http://ceres.ca.gov/search" class="nav_level1_link">Search</a></li>
+            <li><a href="http://ceres.ca.gov/mapviewer" class="nav_level1_link">Maps</a></li>
+        </ul>
+    </div>
+    <div id="img_ribbon"></div>
+</div>
+
 
 
 {% endblock %}
-
-

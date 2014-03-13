@@ -1,0 +1,281 @@
+/*
+Custom ceres styles
+*/
+.ceres-logo.main-logo {
+  font-size: 28px
+}
+.ceres-logo.sub-logo {
+  display:block;
+  font-size: 16px;
+}
+
+/*
+600 and greater
+
+Navigation changes from vertical list to horizontal
+*/
+
+header[role=banner] {
+	min-height:188px;
+}
+.home header {
+	min-height:390px;
+}
+
+.logo_and_banner {
+	margin:0;
+}
+
+.head_cagov_logo { /* 94 x 74 */
+	display:block;
+	position:absolute;
+	top:30px;
+	left:28px;
+	z-index:10;
+}
+.home .head_cagov_logo { /* 94 x 74 */
+	top:16px;
+}
+
+.head_organization_banner {
+	max-width:none;
+	margin:0 auto;
+	top:0px; /* adjust this, depending on size of your banner */
+	display:block;
+	height:auto;
+	line-height:normal;
+	text-align:center;
+}
+.ie7 .head_organization_banner {
+	min-width:1px; /* IE7 needs layout */
+}
+.home .head_organization_banner {
+	top:6px; /* adjust this, depending on size of your banner */
+}
+.head_organization_banner img {
+	width:auto;
+}
+
+#head_search {
+	position:absolute;
+	top:10px;
+	width:30%;
+	right:10px;
+	margin:0 2px 2px 2px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	display:block;
+}
+.home #head_search {
+	top:200px;
+	right:auto;
+	width:66%; /* 70 - 0 - 4 */
+	margin-left:15%;
+}
+
+
+#navigation {
+	position:absolute;
+	top:141px;
+	width:auto;
+	min-width:100%;
+	height:auto;
+	overflow:visible;
+}
+.home #navigation {
+	top:106px;
+}
+#nav_list {
+	position:static;
+	bottom:0;
+	width:100%;
+	display:table;
+}
+#nav_list li {
+	margin:0;
+	background-color:transparent;
+	display:table-cell; /* enable table-like sizing of the main nav items */
+	list-style:none;
+}
+#nav_list li li {
+	display:list-item;
+}
+
+.ie7 #navigation {
+	width:100%;
+}
+.ie7 #navigation li {
+	float: left;
+	width:16%; /* Step 7: Fix for IE7. Set this to 100% / # of nav items, round down */
+}
+.ie7 #navigation li li {
+	width:100%; /* for IE7 */
+}
+
+/* Navigation - Mega Drop-Down */
+
+.nav_panel {
+	position:absolute;
+	width:90%;
+	min-height:186px; /* 266 - 16 - 64 */
+	left:0px;
+	padding:16px 5% 64px 5%;
+	overflow:visible;
+}
+.nav_panel a:link, .nav_panel a:visited {
+	color:#000;
+}
+.nav_panel a:hover {
+	color:#3d3d3d;
+}
+
+.nav_panel ul {
+	float:left;
+	width:33.3%;
+}
+
+#navigation .nav_panel li {
+	float:none;
+	background-color:transparent;
+	padding:0 4px 14px 4px;
+}
+
+.no-js #navigation li:hover .nav_panel, .ie7 #navigation li:hover .nav_panel {
+	display:block;
+	opacity:1;
+	z-index:2;
+}
+#navigation li .nav_panel {
+	opacity:0.01;
+	-webkit-transition: opacity .3s ease-in-out;
+	-moz-transition: opacity .3s ease-in-out;
+	-o-transition: opacity .3s ease-in-out;
+	-ms-transition: opacity .3s ease-in-out;	
+	transition: opacity .3s ease-in-out;
+}
+.oldie #navigation li .nav_panel {
+	opacity:1; /* IE 9 and older does not support opacity transition */
+}
+#navigation #nav_list li .mo_opacity {
+	opacity:1;
+	z-index:2;
+}
+#navigation #nav_list li .mo_display {
+	display:block;
+}
+
+.nav_p_heading {
+	color:#003366;
+	font-size:14px;
+	font-weight:bold;
+}
+.nav_p_description {
+	font-size:11px;
+	padding-top:4px;
+}
+
+.nav_d_arrow_container {
+	background:transparent url(../images/template2013/nav_down_arrow.png) no-repeat;
+	width:44px;
+	height:16px;
+	position:absolute;
+	top:0px;
+	margin-left:-22px;
+	left:50%;
+}
+
+.ie7 .nav_d_arrow_container, .ie8 .nav_d_arrow_container {
+	display:none; /* Arrows won't be positioned correctly, so don't bother showing them */
+}
+
+/* Mini nav */
+
+#navigation.mininav .nav_panel {
+	min-height:1px;
+	padding:28px 5% 10px 5%;
+	background:#e5e5e5 url(../imgs/nav_shadow.png) repeat-x 0 0;
+	border-bottom:4px solid #cccccc;
+}
+.mininav .nav_panel ul {
+	float:left;
+	width:auto;
+}
+#navigation.mininav .nav_panel li {
+	float:left;
+	background:transparent url(../images/template2013/bullet_blue_disc.png) no-repeat 0 1px;
+	padding:0 4px 14px 18px;
+	margin-right:10px;
+}
+
+/* Phone nav */
+
+header[role=banner] #navigation.phone_show_nav {
+	height:auto;
+}
+
+.phone_hdr, .rgba .phone_hdr, .ie7 .phone_hdr {
+	background-color: transparent;
+}
+.phone_hdr {
+	margin-bottom:0; /* fix IE9 issue where gap appears below header */
+}
+
+.phone_hd_left, .phone_hd_right {
+	display:none;
+}
+
+/* Ribbon */
+
+.home #img_ribbon {
+	position:absolute;
+	top:324px;
+	width:100%;
+	height:95px;
+}
+
+
+/* ***** Content ***** */
+
+.home #main_content {
+	padding-top:38px; /* reserve space for ribbon */
+	padding-bottom:65px; /* reserve space for wave over footer */
+}
+#main_content {
+	min-height:20em;
+}
+.ie8 #main_content {
+	min-height:0;
+}
+
+.home .content_left_column {
+	background:transparent;
+}
+
+.add_maincontent_padding {
+	padding:16px 5% 16px 8%;
+}
+
+.hide_from_phones {
+	display:block;
+}
+span.hide_from_phones {
+	display:inline;
+}
+
+.add_icon_blue_arrow_down, .add_icon_blue_arrow_right, .add_icon_blue_star {
+	margin-left:-40px;
+}
+
+.half_width_column {
+	width: 40%;
+	float: left;
+	padding:0 5% 0 5%;
+}
+
+footer {
+	line-height:normal;
+}
+.home footer {
+	padding-top:0;
+	box-shadow:none;
+}

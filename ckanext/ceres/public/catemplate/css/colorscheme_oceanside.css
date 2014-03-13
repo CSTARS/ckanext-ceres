@@ -1,0 +1,167 @@
+
+.phone_hdr {
+	background-color: #003366; /* for non-rgba browsers */
+}
+.rgba .phone_hdr {
+	background-color: rgba(0, 51, 102, 1);
+}
+#head_search {
+	background-color: #003366;
+}
+.rgba #head_search {
+	background-color: rgba(0, 51, 102, 1);
+}
+.home #search_local_textfield:hover {
+	border:2px solid #fbad23;
+}
+#navigation li {
+	background-color: #003366;
+}
+.rgba #navigation li {
+	background-color: rgba(0, 51, 102, 1);
+}
+.oldie .highlighted_nav_item a.nav_level1_link, .oldie #navigation #nav_list li:hover a.nav_level1_link {
+	color:#e1d7c3; /* IE 7-9 text-shadow causes text to shift, so just change text color instead */
+}
+
+footer, body {
+	background:#003366;
+}
+
+.container_style_a {
+	border:1px solid #006699;
+	background:#eef3f7;
+}
+.container_style_a h4 {
+	background-color:#006699;
+	border-bottom:5px solid #003366;
+}
+
+.container_style_b {
+	border:1px solid #006699;
+	background:#eef3f7;
+}
+.container_style_b h4 {
+	background-color:#a6c6df;
+	border-bottom:1px solid #a6c6df;
+}
+
+.container_style_c {
+	background:#eef3f7;
+}
+
+.container_style_d h5 {
+	border-bottom:5px solid #fbad23;
+	background-color:#003366;
+}
+.style_d_triangle {
+	background:transparent url(../images/template2013/oceanside/container_d_triangle.png) no-repeat;
+}
+.style_d_gradient {
+	background: -moz-linear-gradient(top, rgba(166,198,223,0.9) 0%, rgba(166,198,223,0) 100%); /* FF3.6+ */
+	background: -webkit-linear-gradient(top, rgba(166,198,223,0.9) 0%,rgba(166,198,223,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(166,198,223,0.9) 0%,rgba(166,198,223,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(166,198,223,0.9) 0%,rgba(166,198,223,0) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(166,198,223,0.9) 0%,rgba(166,198,223,0) 100%); /* W3C */
+}
+
+.container_style_e h5 {
+	border-top:2px solid #0a3a6b;
+	border-bottom:2px solid #0a3a6b;
+	background:#e0ecf5;
+}
+
+.media_caption {
+	background-color:#eef3f7;
+}
+
+@media only screen and (min-width: 100px) {
+
+	header[role=banner] {
+		background: #000 url(../imgs/header_background.jpg) no-repeat 40% 40%;
+	}
+
+	#navigation {
+		background-color: #003366; /* for ie8 */
+		border-bottom:3px solid #fbad23;
+	}
+	.rgba #navigation {
+		background-color: rgba(0, 51, 102, 0.85);
+	}
+	.rgba #navigation li {
+		background-color: transparent;
+	}
+	.rgba #head_search {
+		background-color: rgba(0, 51, 102, 0.85);
+	}
+
+	.megadropdown .nav_panel {
+		background:transparent url(../images/template2013/oceanside/megadropdown_ribbon.png) no-repeat 70.3125% 100%;
+	}
+	.multiplebgs .megadropdown .nav_panel {
+		background: url(../imgs/nav_shadow.png) repeat-x 0 0, url(../images/template2013/oceanside/megadropdown_ribbon.png) no-repeat 70.3125% 100%;
+	}
+
+	.nav_p_heading, .nav_p_description {
+		background-color:#eef3f7; /* Needed when images are turned off */
+	}
+
+	.home #img_ribbon {
+		background:transparent url(../images/template2013/oceanside/ribbon_home.png) no-repeat 70.3125% 0%;
+	}
+
+	.home #main_content {
+		background:#fff url(../images/template2013/oceanside/footer_bg.png) no-repeat 70.3125% 100%;
+	}
+
+}
+
+@media only screen and (min-width: 768px) {
+
+	.home.two_column #img_ribbon {
+		background:transparent url(../images/template2013/oceanside/ribbon_home_two_column.png) no-repeat 70.3125% 0%;
+	}
+	.two_column #main_content {
+		background: #fff url(../images/template2013/oceanside/2column_bg.png) repeat-y 70.3125% 0%;
+	}
+	.home #main_content {
+		background: url(../images/template2013/oceanside/footer_bg.png) no-repeat 70.3125% 100%;
+		background-color:#fff;
+	}
+	.home.two_column #main_content {
+		background: url(../images/template2013/oceanside/footer_bg.png) no-repeat 70.3125% 100%,  url(../images/template2013/oceanside/2column_bg.png) repeat-y 70.3125% 0%;
+		background-color:#fff;
+	}
+	.ie7 .home.two_column #main_content, .ie8 .home.two_column #main_content {
+		background: #fff url(../images/template2013/oceanside/2column_bg.png) repeat-y 70.3125% 0%;
+	}
+
+}
+
+@media only screen and (min-width: 1280px) {
+
+	body {
+		background: #05386a; /* Old browsers */
+		background: -moz-linear-gradient(left,  #05386a 0%, #a6c6df 50%, #05386a 100%); /* FF3.6+ */
+		background: -webkit-linear-gradient(left,  #05386a 0%,#a6c6df 50%,#05386a 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(left,  #05386a 0%,#a6c6df 50%,#05386a 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(left,  #05386a 0%,#a6c6df 50%,#05386a 100%); /* IE10+ */
+		background: linear-gradient(to right,  #05386a 0%,#a6c6df 50%,#05386a 100%); /* W3C */
+	}
+	.oldie body {
+		background:#05386a url(../images/template2013/oceanside/body_background.png) repeat-y 50% 0%;
+	}
+
+	header[role=banner], #main_content, footer {
+		border-left:7px solid #32608a;
+		border-right:7px solid #32608a;
+	}
+	#background_decorative {
+		background-color: #32608a;
+	}
+	.ie9 #background_decorative {
+		background:#05386a url(../images/template2013/oceanside/body_background.png) repeat-y 50% 0%;
+		background-size:2100px 10px;
+	}
+
+}

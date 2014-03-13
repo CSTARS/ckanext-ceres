@@ -1,24 +1,74 @@
-{%- block doctype %}<!DOCTYPE html>{% endblock -%}
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
-<head {% block headtag %}{% endblock %}>
+<!DOCTYPE html>
+
+<!--
+State of California 2013 master template
+Version 2013.xx.xx
+
+Based on 320 and Up boilerplate extension
+-->
+
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 oldie" lang="en"> <![endif]-->
+<!--[if (gt IE 9)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+<meta charset="utf-8" />
 
 <title>Contribute &laquo;  CERES</title>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="Author" content="State of California" />
 <meta name="Description" content="State of California" />
-<meta name="Keywords" content="California, state, government" />
-<!-- InstanceEndEditable -->
+<meta name="Keywords" content="California, government" />
 <meta name="language" content="English" />
 
-<!-- killing IE compatibility mode -->
-<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE, chrome=1" />
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True" /> <!-- for Blackberry, AvantGo -->
+<meta name="MobileOptimized" content="320" /> <!-- for Windows mobile -->
+<meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0" />
 
-<link rel="pingback" href="http://ceres.cms.casil.ucdavis.edu/xmlrpc.php" />
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/catemplate/css/style.css">
+<link rel="stylesheet" href="/catemplate/css/colorscheme_oceanside.css">
+
+
+<link rel="stylesheet" media="print" href="/catemplate/css/print.css">
+
+<link rel="stylesheet" href="/catemplate/css/600.css">
+<link rel="stylesheet" media="only screen and (min-width: 768px)" href="/catemplate/css/768.css">
+<link rel="stylesheet" media="only screen and (min-width: 1280px)" href="/catemplate/css/1280.css">
+
+<!-- modernizr.com, feature detection -->
+<script src="/catemplate/js/modernizr-2.0.6.min.js"></script>
+
+<!-- For iPad 3-->
+<link rel="apple-touch-icon" sizes="144x144" href="/catemplate/apple-touch-icon-144x144.png">
+<!-- For iPhone 4 -->
+<link rel="apple-touch-icon" sizes="114x114" href="/catemplate/apple-touch-icon-114x114.png">
+<!-- For iPad 1-->
+<link rel="apple-touch-icon" sizes="72x72" href="/catemplate/apple-touch-icon-72x72.png">
+<!-- For iPhone 3G, iPod Touch and Android -->
+<link rel="apple-touch-icon" href="/catemplate/apple-touch-icon-57x57.png">
+<!-- For Nokia -->
+<link rel="shortcut icon" href="/catemplate/apple-touch-icon-57x57.png">
+<!-- For everything else -->
+<link rel="shortcut icon" href="/catemplate/favicon.ico">
+
+<!--Microsoft. Activate ClearType. Use highest compatibility mode, enable Chrome Frame -->
+<!--[if IE]>
+<meta http-equiv="cleartype" content="on">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/catemplate/js/scripts.js"></script>
 
 {%- block styles %}
   {% resource g.main_css[6:] %}
-  {% resource 'ceres/template' %}
 {% endblock %}
 
 {% block head_extras %}
@@ -35,20 +85,8 @@
 {% endblock %}
 
 
-<script type="text/javascript">
-<!--
-
-var defaultMainList = "Contribute Data";
-
-// -->
-</script>
-
-<!--[if IE 6]>
-	<link rel="stylesheet" type="text/css" href="/css/ie6.css" />
-<![endif]-->
-
 </head>
-<body {% block bodytag %} data-site-root="{{ h.url('/', locale='default', qualified=true) }}" data-locale-root==
+<body class="clearfix" style="padding:0;min-width:900px" {% block bodytag %} data-site-root="{{ h.url('/', locale='default', qualified=true) }}" data-locale-root=
 "{{ h.url('/', qualified=true) }}" data-api-root="{{ g.api_url }}"{% endblock %}>
 
 

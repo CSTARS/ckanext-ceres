@@ -1,0 +1,107 @@
+{%- block doctype %}<!DOCTYPE html>{% endblock -%}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+<head {% block headtag %}{% endblock %}>
+
+<title>Contribute &laquo;  CERES</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="Author" content="State of California" />
+<meta name="Description" content="State of California" />
+<meta name="Keywords" content="California, state, government" />
+<!-- InstanceEndEditable -->
+<meta name="language" content="English" />
+
+<!-- killing IE compatibility mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE, chrome=1" />
+
+<link rel="pingback" href="http://ceres.cms.casil.ucdavis.edu/xmlrpc.php" />
+
+{%- block styles %}
+  {% resource g.main_css[6:] %}
+  {% resource 'ceres/template' %}
+{% endblock %}
+
+{% block head_extras %}
+  {# defined in the config.ini under "ckan.template_head_end" #}
+  {{ g.template_head_end | safe }}
+{% endblock %}
+
+{%- block custom_styles %}
+  {%- if g.site_custom_css -%}
+  <style>
+    {{ g.site_custom_css | safe }}
+  </style>
+  {%- endif %}
+{% endblock %}
+
+
+<script type="text/javascript">
+<!--
+
+var defaultMainList = "Contribute Data";
+
+// -->
+</script>
+
+<!--[if IE 6]>
+	<link rel="stylesheet" type="text/css" href="/css/ie6.css" />
+<![endif]-->
+
+</head>
+<body {% block bodytag %} data-site-root="{{ h.url('/', locale='default', qualified=true) }}" data-locale-root==
+"{{ h.url('/', qualified=true) }}" data-api-root="{{ g.api_url }}"{% endblock %}>
+
+
+{%- block page %}{% endblock -%}
+        
+{%- block scripts %}
+{% endblock -%}
+
+{% block body_extras -%}
+  {# defined in the config.ini under "ckan.template_footer_end" #}
+  {{ g.template_footer_end | safe }}
+{%- endblock %}
+
+</div>
+
+	<div class="cleaner"></div>
+
+</div>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-3419582-14']); // Step 4: your google analytics profile code, either from your own google account, or contact eServices to have one set up for you
+  _gaq.push(['_setDomainName', '.ca.gov']);
+  _gaq.push(['_trackPageview']);
+
+  _gaq.push(['b._setAccount', 'UA-3419582-2']); // statewide analytics - do not remove or change
+  _gaq.push(['b._setDomainName', '.ca.gov']);
+  _gaq.push(['b._trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+<footer id="footer_2" class="clearfix">
+	<div>
+		<a href="#skip_to_content">Back to Top</a> <a href="/">Conditions of Use</a> <a href="/">Privacy Policy</a> <a href="/">Accessibility</a> <a href="/staff">Contact Us</a>
+	</div>
+
+	<div>
+		Copyright &copy; 2013 State of California
+	</div>
+</footer>
+
+<div id="background_decorative">&nbsp;</div>
+
+</body>
+</html>
+

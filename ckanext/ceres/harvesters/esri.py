@@ -606,7 +606,8 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
 
         if hasExtent:
             return False
-        return True
+
+        return False
 
     def _is_ext_ca(self, ext):
         sr = ext.get("spatialReference")
@@ -620,7 +621,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
 
                 # check to see if we have real numbers
                 if not self._check_valid(min, max):
-                    return True
+                    return False
 
                 if self._intersect(self.caMin, self.caMax, min, max):
                     return True
@@ -634,7 +635,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
                 print Exception, e
                 print "Error projecting:  %s %s %s" % (sr.get("wkid"), ext.get("xmin"), ext.get("ymin"))
                 return False
-        return True
+        return False
 
     def _check_valid(self, br, tl):
         if math.isnan(br[0]) or math.isnan(br[1]) or math.isnan(tl[0]) or math.isnan(tl[1]):
