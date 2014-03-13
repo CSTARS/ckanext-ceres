@@ -48,6 +48,7 @@ Custom Ceres Styles
 
 h1, h2, h3, h4, h5, h6 {
     border-bottom: none !important;
+    font-family : Arial,Helvetica,sans-serif !important;
 }
 
 .site-footer {
@@ -330,7 +331,7 @@ header {
 	background-position:40% 40%;
 }
 header a, header a:link,  header a:visited, header a:hover, .submit_container input {
-	color: #fff; /* needed when images are turned off */
+	/* color: #fff; JM */ /* needed when images are turned off */
 }
 
 .logo_and_banner {
