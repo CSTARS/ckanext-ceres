@@ -500,6 +500,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         extras = {
             'guid': harvest_object.guid,
             'esri_harvester': True,
+            'spatial' : self._get_extent(jso)
         }
 
         extras_as_dict = []
@@ -551,16 +552,27 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         server = server.strip('/')
         path = path.strip('/')
 
-        json = self._get_json(server+"/"+path+"/"+foldername)
+        try:
+            json = self._get_json(server+"/"+path+"/"+foldername)
+        except:
+            log.debug('Failed to access folder: ' % server+"/"+path+"/"+foldername)
 
         serviceList = json.get("services")
         for service in serviceList:
             serviceUrl = server+"/"+path+"/"+service.get("name")+"/"+service.get("type")
-            if self._is_ca(self._get_json(serviceUrl)):
-                services.append(serviceUrl)
-                log.debug('Service is in CA:  %s' % serviceUrl)
-            else:
-                log.debug('Service is OUTSIDE CA:  %s' % serviceUrl)
+
+
+            try:
+                serviceJson = self._get_json(serviceUrl)
+                if self._is_ca(serviceJson):
+                    services.append(serviceUrl)
+                    log.debug('Service is in CA:  %s' % serviceUrl)
+                else:
+                    log.debug('Service is OUTSIDE CA:  %s' % serviceUrl)
+            except:
+                log.debug('Failed to access service: ' % serviceUrl)
+
+
 
         folders = json.get("folders")
         for folder in folders:
@@ -594,6 +606,42 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         if json.get("description") != None and json.get("description") != "":
             return json.get("description")
 
+    def _get_extent(self, json):
+        extentVars = ["fullExtent", "initialExtent", "extent"]
+        hasExtent = False
+
+        for extentVar in extentVars:
+            if json.get(extentVar) != None:
+                return self._format_geojson(json.get(extentVar))
+
+        return {}
+
+    def _format_geojson(self, ext):
+        sr = ext.get("spatialReference")
+        if sr.get("wkid") != None:
+            try:
+                br = self._transform(sr.get("wkid"), "4326", ext.get("xmax"), ext.get("ymin"))
+                tl = self._transform(sr.get("wkid"), "4326", ext.get("xmin"), ext.get("ymax"))
+
+                return {
+                    "type": "Polygon",
+                    "coordinates": [[
+                        [tl[0], tl[1]],
+                        [tl[0], br[1]],
+                        [br[0], br[1]],
+                        [br[0], tl[1]]
+                    ]]
+                }
+
+
+            except Exception as e:
+                print Exception, e
+                print "Error projecting:  %s %s %s" % (sr.get("wkid"), ext.get("xmin"), ext.get("ymin"))
+                return False
+
+        return {}
+
+
     def _is_ca(self, json):
         extentVars = ["fullExtent", "initialExtent", "extent"]
         hasExtent = False
@@ -601,6 +649,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         for extentVar in extentVars:
             if json.get(extentVar) != None:
                 hasExtent = True
+                print 'Checking %s' % (extentVar)
                 if self._is_ext_ca(json.get(extentVar)):
                     return True
 
@@ -615,9 +664,6 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
             try:
                 min = self._transform(sr.get("wkid"), "4326", ext.get("xmax"), ext.get("ymin"))
                 max = self._transform(sr.get("wkid"), "4326", ext.get("xmin"), ext.get("ymax"))
-
-                print min
-                print max
 
                 # check to see if we have real numbers
                 if not self._check_valid(min, max):
@@ -654,7 +700,8 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         return False
 
     def _point_intersect(self, x, y, br, tl):
-        #print "%s < %s and %s > %s and %s > %s and %s < %s" % (x, br[0], x, tl[0], y, br[1], y,tl[1])
+        print "%s < %s and %s > %s and %s > %s and %s < %s" % (x, br[0], x, tl[0], y, br[1], y,tl[1])
+        print "    %s" % (x < br[0] and x > tl[0] and y > br[1] and y < tl[1])
         #print "%s and %s and %s and %s" % ((x < br[0]), (x > tl[0]), (y > br[1]), (y < tl[1]))
         if x < br[0] and x > tl[0] and y > br[1] and y < tl[1]:
             return True
