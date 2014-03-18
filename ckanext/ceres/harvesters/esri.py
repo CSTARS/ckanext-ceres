@@ -31,8 +31,8 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         104199 : "4326",
         102100 : "3857"
     }
-    caMax = [-128.0, 45.0]
-    caMin = [-109.0, 29.0]
+    caMax = [-125.0, 42.5]
+    caMin = [-113.0, 32.5]
 
     bad = []
     count = 0
@@ -84,8 +84,6 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         :param harvest_object_id: Config string coming from the form
         :returns: A string with the validated configuration options
         '''
-        print 'validate_config()'
-        print config
 
     def get_original_url(self, harvest_object_id):
         '''
@@ -114,9 +112,6 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
                                     first()
 
         parts = urlparse.urlparse(obj.source.url)
-
-        print 'get_original_url()'
-        print parts
 
         return obj.source.url
 
@@ -223,7 +218,6 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         :param harvest_object: HarvestObject object
         :returns: True if everything went right, False if errors were found
         '''
-        print harvest_object
         log = logging.getLogger(__name__ + '.ESRIHarvester.fetch')
         log.debug('ESRIHarvester fetch_stage for object: %s', harvest_object.id)
 
@@ -265,7 +259,6 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         :param harvest_object: HarvestObject object
         :returns: True if everything went right, False if errors were found
         '''
-        print harvest_object
 
         log = logging.getLogger(__name__ + '.import')
         log.debug('Import stage for harvest object: %s', harvest_object.id)
@@ -612,7 +605,8 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
 
         for extentVar in extentVars:
             if json.get(extentVar) != None:
-                return self._format_geojson(json.get(extentVar))
+                if self._is_ext_ca(json.get(extentVar)):
+                    return self._format_geojson(json.get(extentVar))
 
         return {}
 
@@ -649,7 +643,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         for extentVar in extentVars:
             if json.get(extentVar) != None:
                 hasExtent = True
-                print 'Checking %s' % (extentVar)
+                #print 'Checking %s' % (extentVar)
                 if self._is_ext_ca(json.get(extentVar)):
                     return True
 
@@ -700,8 +694,8 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         return False
 
     def _point_intersect(self, x, y, br, tl):
-        print "%s < %s and %s > %s and %s > %s and %s < %s" % (x, br[0], x, tl[0], y, br[1], y,tl[1])
-        print "    %s" % (x < br[0] and x > tl[0] and y > br[1] and y < tl[1])
+        #print "%s < %s and %s > %s and %s > %s and %s < %s" % (x, br[0], x, tl[0], y, br[1], y,tl[1])
+        #print "    %s" % (x < br[0] and x > tl[0] and y > br[1] and y < tl[1])
         #print "%s and %s and %s and %s" % ((x < br[0]), (x > tl[0]), (y > br[1]), (y < tl[1]))
         if x < br[0] and x > tl[0] and y > br[1] and y < tl[1]:
             return True
