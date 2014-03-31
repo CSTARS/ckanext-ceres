@@ -548,7 +548,7 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
         try:
             json = self._get_json(server+"/"+path+"/"+foldername)
         except:
-            log.debug('Failed to access folder: ' % server+"/"+path+"/"+foldername)
+            log.debug('Failed to access folder: %s ' % server+"/"+path+"/"+foldername)
 
         serviceList = json.get("services")
         for service in serviceList:
@@ -562,8 +562,8 @@ class ESRIHarvester(HarvesterBase, SingletonPlugin):
                     log.debug('Service is in CA:  %s' % serviceUrl)
                 else:
                     log.debug('Service is OUTSIDE CA:  %s' % serviceUrl)
-            except:
-                log.debug('Failed to access service: ' % serviceUrl)
+            except Exception, e:
+                log.debug('Failed to access service: %s' % serviceUrl)
 
 
 
