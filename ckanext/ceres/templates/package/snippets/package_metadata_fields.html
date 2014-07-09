@@ -36,16 +36,14 @@ won't work.
   </div>
 </div>
 
-{% set Topic_attrs = {'data-module': 'autocompleteV3', 'data-module-source': '/api/3/action/tag_autocomplete?vocabulary_id=Topic&query=?'} %}
-{{ form.input('Topic', id='field-Topic', label=_('Topics**'), value=data.Topic, error=errors.Topic, classes=['control-full'], attrs=Topic_attrs) }}
+{% set Topic_attrs = {'data-module': 'autocompleteV3', 'data-module-source': '/api/3/action/tag_autocomplete?query=?'} %}
+{{ form.input('Topic', id='field-Topic', label=_('Topics'), value=data.Topic, error=errors.Topic, classes=['control-full'], attrs=Topic_attrs) }}
 
+{% set Partner_attrs = {'data-module': 'autocompleteV3', 'data-module-tags': '', 'data-module-source': '/api/3/action/tag_autocomplete?query=?'} %}
+{{ form.input('Partner', id='field-Partner', label=_('Partners'), placeholder=_(''), value=data.Partner, error=errors.Partner, classes=['control-full'], attrs=Partner_attrs) }}
 
-{% set Partner_attrs = {'data-module': 'autocompleteV3', 'data-module-source': '/api/3/action/tag_autocomplete?vocabulary_id=Partner&query=?'} %}
-{{ form.input('Partner', id='field-Topic', label=_('Partners**'), value=data.Partner, error=errors.Partner, classes=['control-full'], attrs=Partner_attrs) }}
-
-
-{% set Location_attrs = {'data-module': 'autocompleteV3', 'data-module-tags': '', 'data-module-source': '/api/3/action/tag_autocomplete?vocabulary_id=Location&query=?'} %}
-{{ form.input('Location', id='field-Location', label=_('Locations**'), placeholder=_('eg. yolo, yuba river'), value=data.Location, error=errors.Location, classes=['control-full'], attrs=Location_attrs) }}
+{% set Location_attrs = {'data-module': 'autocompleteV3', 'data-module-tags': '', 'data-module-source': '/api/3/action/tag_autocomplete?query=?'} %}
+{{ form.input('Location', id='field-Location', label=_('Locations'), placeholder=_('eg. yolo, yuba river'), value=data.Location, error=errors.Location, classes=['control-full'], attrs=Location_attrs) }}
 
 
 
@@ -128,13 +126,14 @@ won't work.
 	  </div>
 	</div>
 -->
+        <!--
     <div class="alert alert-info">
         <b>**</b> These are controlled vocabularies and you must select from the list provided.  If you wish to add
         additional keywords, please do so in 'Tags' list.  You are free to add any terms you wish in the 'Tags' list.
         If you feel strongly that a term is missing from a controlled vocabulary, please contact us at
         <a href="mailto:help@ceres.ca.gov" target="_blank">help@ceres.ca.gov</a>.
     </div>
-
+-->
 
         <h4 style="border-bottom:1px solid #ccc;margin:35px 0 15px 0;color:#666">CKAN Extras</h4>
         {{ super() }}
